@@ -1,0 +1,50 @@
+{
+  "model_name": "damaged-box-detector",
+  "version": "1.0.0",
+  "task": "object_detection",
+  "framework": "ultralytics-yolov8",
+  "weights": {
+    "primary": "models/box-detector/weights.pt"
+  },
+  "classes": [
+    { "name": "damaged_box", "aliases": ["broken", "crushed", "torn"] },
+    { "name": "normal_box", "aliases": ["intact", "good"] }
+  ],
+  "intended_use": {
+    "summary": "Detect damaged and normal cardboard boxes in warehouse settings.",
+    "environment": ["warehouse", "indoor", "logistics center"],
+    "out_of_scope": ["internal damage detection", "non-cardboard object detection"]
+  },
+  "data": {
+    "dataset_format": "yolo",
+    "image_count": { "train": 372, "val": 114, "test": 57 },
+    "source": "smartphone_camera_collected_by_student",
+    "labeling_notes": "Boxes cover visible object extent; damaged boxes have visible dents or tears."
+  },
+  "evaluation": {
+    "test_metrics": {
+      "map50": 0.981,
+      "map5095": 0.970,
+      "precision": 0.991,
+      "recall": 0.983
+    },
+    "recommended_thresholds": { "confidence": 0.25, "nms_iou": 0.70 }
+  },
+  "io": {
+    "input": { "type": "image", "color_space": "RGB" },
+    "output": { "format": "detections_json", "bbox": "xyxy", "score": "confidence" }
+  },
+  "limitations": [
+    "Performance may drop under extreme shadows or low lighting.",
+    "Highly reflective shipping tape may cause false positives."
+  ],
+  "runtime": {
+    "model_size_mb": 6.2,
+    "latency_ms_cpu": 45
+  },
+  "license": {
+    "model": "CC-BY-4.0",
+    "data": "CC-BY-4.0",
+    "notes": "No personal data or faces included in the dataset."
+  }
+}

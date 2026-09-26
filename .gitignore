@@ -1,0 +1,13 @@
+# Model ağırlıkları ve çalıştırma çıktıları
+runs/
+*.pt
+
+# Veri seti klasörleri (GitHub için genelde çok büyüktür)
+train/
+test/
+valid/
+
+# Python önbellekleri
+__pycache__/
+*.pyc
+.env
